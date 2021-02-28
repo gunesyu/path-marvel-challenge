@@ -1,3 +1,17 @@
+#### postman collection
+> https://www.getpostman.com/collections/4fb348479310ab27432f
+
+### project structure
+- create react app
+- typescript
+- redux
+- react router
+- axios
+- jest
+
+-----
+#
+-----
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
