@@ -1,26 +1,22 @@
-import React from 'react';
-import { Button } from 'antd'
-import logo from './logo.svg';
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
+
 import './App.css';
+
+import Details from './pages/Details';
+import List from './pages/List'
 
 function App() {
   return (
-		<div className='App'>
-			<header className='App-header'>
-				<img src={logo} className='App-logo' alt='logo' />
-				<p>
-					Edit <code>src/App.tsx</code> and save to reload.
-				</p>
-				<a
-					className='App-link'
-					href='https://reactjs.org'
-					target='_blank'
-					rel='noopener noreferrer'>
-					Learn React
-				</a>
-				<Button type='primary'>Button</Button>
-			</header>
-		</div>
+		<BrowserRouter>
+			<Switch>
+				<Route exact path='/'>
+					<List />
+				</Route>
+				<Route path='/character/:id'>
+					<Details />
+				</Route>
+			</Switch>
+		</BrowserRouter>
   )
 }
 
