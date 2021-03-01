@@ -1,34 +1,38 @@
 import { useState, useEffect } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import Loading from '../components/Loading'
-import ICharacter from '../data/ICharacter'
-import IMarvelResponse from '../data/IMarvelResponse'
-import {getCharacters} from '../data/marvelAPI'
 import { Link } from 'react-router-dom'
 import { List, Avatar, Spin } from 'antd'
+import { useSelector, useDispatch } from 'react-redux'
+import { IListState } from '../store/models'
+import ICharacter from '../data/ICharacter'
+import { getCharacters } from '../data/marvelAPI'
+import { setPageCount } from '../store/actions'
 import PageLayout from '../components/PageLayout'
+import Loading from '../components/Loading'
 
 
 export default function ListPage() {
 	const [listData, setListData] = useState<any[]>([])
-    const [pageCount, setPageCount] = useState(1)
     const [loading, setLoading] = useState(false)
+	const [hasMoreData, setHasMoreData] = useState(true)
+
+	const {pageCount, limit} = useSelector((state: { list: IListState }) => state.list)
+	const dispatch = useDispatch()
 
 	useEffect(() => {
-        getCharacters()
-            .then(response => {
-                setListData(response.results)
-            })
+        getCharacters().then((response) => {
+			setListData(response.results)
+		})
 	}, [])
 
-	const hasMore = true
 	const handleInfiniteOnLoad = () => {
         setLoading(true)
-        const offset = pageCount * 30
-        getCharacters(offset).then((response) => {
+        const newOffset = pageCount * limit
+        getCharacters(newOffset).then((response) => {
 			setListData((prevListData) => prevListData.concat(response.results))
-            setLoading(false)
-            setPageCount((prevPageCount) => prevPageCount + 1)
+			setLoading(false)
+			dispatch(setPageCount(pageCount + 1))
+			setHasMoreData(newOffset < response.total)
 		})
 	}
 
@@ -38,10 +42,10 @@ export default function ListPage() {
 				<Loading />
 			) : (
 				<InfiniteScroll
-                    dataLength={listData.length}
+					dataLength={listData.length}
 					loader={<Loading />}
 					next={handleInfiniteOnLoad}
-					hasMore={hasMore}>
+					hasMore={hasMoreData}>
 					<List
 						dataSource={listData}
 						renderItem={(item: ICharacter) => (
@@ -59,11 +63,7 @@ export default function ListPage() {
 								</Link>
 							</List.Item>
 						)}>
-						{loading && hasMore && (
-							<div className='demo-loading-container'>
-								<Spin />
-							</div>
-						)}
+						{loading && hasMoreData && <Spin />}
 					</List>
 				</InfiniteScroll>
 			)}
