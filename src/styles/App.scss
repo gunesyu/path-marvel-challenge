@@ -1,0 +1,44 @@
+@import "~antd/dist/antd.css";
+
+.details-page {
+    .ant-list-item {
+        &-meta {
+            align-items: center;
+            padding: 15px;
+
+            & .ant-avatar {
+                width: 80px;
+                height: 80px;
+            }
+        }
+    }
+}
+
+.ant-list-item {
+    padding: 0;
+    background-color: #fff;
+
+    & > a {
+        padding: 12px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+
+        & h4 {
+            color: #1088e9;
+        }
+    }
+}
+
+.ant-spin {
+    margin: 15px auto;
+    display: block;
+}
+
+.ant-card-meta-title {
+    color: #1088e9;
+}
+
+.ant-list-empty-text {
+    display: none;
+}

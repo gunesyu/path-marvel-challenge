@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Row, Col, Card, List, Avatar, Spin } from 'antd'
+import { Row, Col, Card, List, Avatar } from 'antd'
 import { useSelector, useDispatch } from 'react-redux'
 import { IDetailState } from '../store/models'
 import { setCharId } from '../store/actions'
@@ -10,13 +10,14 @@ import { getCharacterDetails } from '../data/marvelAPI'
 import Loading from '../components/Loading'
 import PageLayout from '../components/PageLayout'
 
-
 export default function Details() {
-	let { id } = useParams<{id: string}>()
+	let { id } = useParams<{ id: string }>()
 
 	const [detailsData, setDetailsData] = useState<ICharacter>()
 
-	const {detailList} = useSelector((state: {details: IDetailState}) => state.details)
+	const { detailList } = useSelector(
+		(state: { details: IDetailState }) => state.details
+	)
 
 	const dispatch = useDispatch()
 
@@ -28,28 +29,25 @@ export default function Details() {
 	}, [id, dispatch])
 
 	return (
-		<PageLayout>
+		<PageLayout title='Details'>
 			{!detailsData ? (
 				<Loading />
 			) : (
-				<Row>
-					<Col>
+				<Row gutter={30}>
+					<Col md={6} xs={24} sm={12}>
 						<Card
-							style={{ width: 300 }}
 							cover={
 								<img
 									alt={detailsData.name}
 									src={`${detailsData.thumbnail.path}.${detailsData.thumbnail.extension}`}
 								/>
 							}>
-							<Card.Meta
-								title={detailsData.name}
-								description={detailsData.description}
-							/>
+							<Card.Meta title={detailsData.name} />
+							{detailsData.description}
 						</Card>
 					</Col>
 					{detailList.length > 0 ? (
-						<Col>
+						<Col md={18} xs={24} sm={12}>
 							<List
 								dataSource={detailList}
 								renderItem={(item: IComic) => (
@@ -61,14 +59,12 @@ export default function Details() {
 												/>
 											}
 											title={item.title}
+											description={item.description}
 										/>
-										<div>{item.title}</div>
-										<div>{item.description}</div>
-										<div>{item.isbn}</div>
 									</List.Item>
 								)}></List>
 						</Col>
-					): null}
+					) : null}
 				</Row>
 			)}
 		</PageLayout>

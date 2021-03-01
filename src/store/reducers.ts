@@ -26,7 +26,7 @@ const initialDetailState: IDetailState = {
 const detailReducer = (state = initialDetailState, { type, payload }: IAction) => {
 	switch (type) {
 		case actions.CHAR_ID:
-			return { ...state, detailId: payload }
+			return { ...state, detailId: payload, detailList: [] }
 		case actions.CHAR_COMICS:
 			return { ...state, detailList: payload }
 		default:

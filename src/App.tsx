@@ -2,7 +2,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import {Provider} from 'react-redux'
 import store from './store/index'
 
-import './App.css';
+import './styles/App.scss';
 
 import Details from './pages/Details';
 import List from './pages/List'

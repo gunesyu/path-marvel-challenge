@@ -1,10 +1,13 @@
 .page {
     min-height: 100vh;
-    background-color: aliceblue;
 }
 
 .breadcrumb {
     margin: 16px 0;
+    & span {
+        color: #1088e9;
+        font-weight: bold;
+    }
 }
 
 .layoutContent {
@@ -12,7 +15,21 @@
 }
 
 .pageContent {
-    background-color: azure;
+    padding: 0;
+}
+
+.pageHeader {
+    & [role="button"] {
+        background-color: #1088e9 !important;
+        border-radius: 50%;
+        padding: 6px !important;
+        & span {
+            color: #fff;
+        }
+    }
+    & span {
+        color: #1088e9;
+    }
 }
 
 .backTop {

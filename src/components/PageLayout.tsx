@@ -1,16 +1,17 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation, useHistory } from 'react-router-dom'
-import { Row, Col, Layout, Breadcrumb, BackTop, Button, Tooltip } from 'antd'
-import { LeftOutlined } from '@ant-design/icons'
+import { PageHeader, Row, Col, Layout, Breadcrumb, BackTop } from 'antd'
+import { LeftOutlined, UpOutlined } from '@ant-design/icons'
 import styles from '../styles/Layout.module.scss'
 
 const { Content } = Layout
 
 interface IProps {
-	children: JSX.Element
+	children: JSX.Element,
+	title: string
 }
 
-export default function PageLayout({children}: IProps) {
+export default function PageLayout({children, title}: IProps) {
 	const {pathname} = useLocation()
 	const history = useHistory()
 	const [isHomePage, setIsHomePage] = useState(pathname === "/")
@@ -25,18 +26,16 @@ export default function PageLayout({children}: IProps) {
 
     return (
 		<Layout className={styles.page}>
-			<Content className={styles.layoutContent}>
+			<PageHeader
+				className={styles.pageHeader}
+				title={title}
+				onBack={onBackClick}
+				backIcon={!isHomePage ? <LeftOutlined /> : false}
+			/>
+			<Content className={`${styles.layoutContent} ${title.toLowerCase().split(' ').join('-')}-page`}>
 				{!isHomePage && (
 					<Row>
 						<Col span={24}>
-							<Tooltip title='Back'>
-								<Button
-									onClick={onBackClick}
-									type='primary'
-									shape='circle'
-									icon={<LeftOutlined />}
-								/>
-							</Tooltip>
 							<Breadcrumb className={styles.breadcrumb}>
 								<Breadcrumb.Item>
 									<Link to='/'>Home</Link>
@@ -53,7 +52,9 @@ export default function PageLayout({children}: IProps) {
 				</Row>
 			</Content>
 			<BackTop>
-				<div className={styles.backTop}>UP</div>
+				<div className={styles.backTop}>
+					<UpOutlined />
+				</div>
 			</BackTop>
 		</Layout>
 	)
