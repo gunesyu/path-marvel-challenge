@@ -60,6 +60,7 @@ export default function ListPage() {
 										title={item.name}
 									/>
 									<div>{item.name}</div>
+									<div>{item.description}</div>
 								</Link>
 							</List.Item>
 						)}>

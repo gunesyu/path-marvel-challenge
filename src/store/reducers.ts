@@ -21,11 +21,14 @@ const initialDetailState: IDetailState = {
 	minYear: 2005,
 	limit: 10,
 	detailId: null,
+	detailList: []
 }
 const detailReducer = (state = initialDetailState, { type, payload }: IAction) => {
 	switch (type) {
 		case actions.CHAR_ID:
 			return { ...state, detailId: payload }
+		case actions.CHAR_COMICS:
+			return { ...state, detailList: payload }
 		default:
 			return state
 	}

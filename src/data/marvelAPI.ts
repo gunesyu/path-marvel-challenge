@@ -57,3 +57,17 @@ export function getCharacterDetails(id: string) {
 			})
 	})
 }
+
+export function getCharacterComics(id: string, {limit, startYear}: {limit: number, startYear: number}) {
+	return new Promise((resolve: (value: IMarvelResponse) => void, reject) => {
+		API.get<any, IMarvelResponse>(
+			`/characters/${id}/comics?startYear=${startYear}&orderBy=-onsaleDate&limit=${limit}`
+		)
+			.then((response: IMarvelResponse) => {
+				resolve(response)
+			})
+			.catch((error) => {
+				reject(error)
+			})
+	})
+}

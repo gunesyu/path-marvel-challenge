@@ -1,3 +1,5 @@
+import IComic from '../data/IComic'
+
 export interface IAction {
 	type: string
 	payload: any
@@ -13,4 +15,5 @@ export interface IDetailState {
 	minYear: number
 	limit: number
 	detailId: number | null
+	detailList: IComic[]
 }
