@@ -7,7 +7,7 @@
 - redux
 - react router
 - axios
-- jest
+- ~~jest~~
 
 -----
 #
